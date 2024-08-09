@@ -19,9 +19,9 @@ router.post("/",async(req,res)=>{
 
         };
         const book = await Book.create(newBook)
-        return res.status(400).json({
+        return res.status(200).json({
             msg:"Book added Successfully",
-            book
+            book:book
 
         })
         
@@ -45,7 +45,7 @@ router.get('/',async(req,res)=>{
         
     } catch (error) {
        console.log(error.message);
-       responcce.status(500).send({
+       res.status(500).send({
         message:error.message
        }) 
     }
@@ -63,7 +63,7 @@ router.get('/:id',async(req,res)=>{
         
     } catch (error) {
        console.log(error.message);
-       responcce.status(500).send({
+       res.status(500).send({
         message:error.message
        }) 
     }
