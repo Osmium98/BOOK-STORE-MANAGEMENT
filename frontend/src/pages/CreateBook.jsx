@@ -13,21 +13,26 @@ export function CreateBook() {
     const navigate = useNavigate()
 
     const handleSaveBook = () => {
-        console.log("Saving book...");
-        const data = { title, author, publishYear };
-    
         setLoading(true);
-        axios.post("http://localhost:5555/books", data)
-            .then(() => {
-                console.log("Book saved successfully");
-                setLoading(false);
-                navigate("/");
-            })
-            .catch((error) => {
-                setLoading(false);
-                alert("Error Occured, Check the console")
-                console.error('An error occurred:', error.response ? error.response.data : error.message);
-            });
+        setTimeout(() => {
+            console.log("Saving book...");
+            const data = { title, author, publishYear };
+
+
+            axios.post("http://localhost:5555/books", data)
+                .then(() => {
+                    console.log("Book saved successfully");
+                    setLoading(false);
+                    navigate("/");
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    alert("Error Occured, Check the console")
+                    console.error('An error occurred:', error.response ? error.response.data : error.message);
+                });
+
+        }, 1000)
+
     };
 
 

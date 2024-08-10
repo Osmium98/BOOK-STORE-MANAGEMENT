@@ -11,29 +11,33 @@ export function EditBook() {
     const [publishYear, setPublishYear] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
-    const {id} = useParams();
-    
-    useEffect(()=>{
+    const { id } = useParams();
+
+    useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:5555/books/${id}`)
-        .then((response)=>{
-            setAuthor(response.data.author);
-            setTitle(response.data.title);
-            setPublishYear(response.data.publishYear);
-            setLoading(false);
-        }).catch((error)=>{
-            setLoading(false);
-            alert('An error happened .Please Check the Console');
-            console.log(error);
-        })
-    },[])
+        setTimeout(() => {
+            axios.get(`http://localhost:5555/books/${id}`)
+                .then((response) => {
+                    setAuthor(response.data.author);
+                    setTitle(response.data.title);
+                    setPublishYear(response.data.publishYear);
+                    setLoading(false);
+                }).catch((error) => {
+                    setLoading(false);
+                    alert('An error happened .Please Check the Console');
+                    console.log(error);
+                })
+        }, 300)
+
+    }, [])
 
     const handleEditBook = () => {
         console.log("Saving book...");
         const data = { title, author, publishYear };
-    
+
         setLoading(true);
-        axios.put(`http://localhost:5555/books/${id}`, data)
+        setTimeout(()=>{
+            axios.put(`http://localhost:5555/books/${id}`, data)
             .then(() => {
                 console.log("Book saved successfully");
                 setLoading(false);
@@ -44,6 +48,9 @@ export function EditBook() {
                 alert("Error Occured, Check the console")
                 console.error('An error occurred:', error.response ? error.response.data : error.message);
             });
+
+        },1000)
+       
     };
 
 
